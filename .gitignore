@@ -1,0 +1,22 @@
+# Entorno Virtual de Python
+.venv/
+__pycache__/
+*.pyc
+
+# Dependencias de Frontend
+frontend/node_modules/
+frontend/dist/
+
+# Archivos de entorno (secretos como API Keys)
+.env
+*.env
+backend/.env
+frontend/.env
+
+# Archivos de sistema operativo y editores
+.DS_Store
+.vscode/
+.idea/
+
+# Archivos de Jupyter Notebook
+.ipynb_checkpoints/
