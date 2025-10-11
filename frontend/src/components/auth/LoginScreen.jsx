@@ -37,7 +37,16 @@ export default function LoginScreen({ onLoginSuccess }) {
     <div className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 min-h-screen text-white flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="bg-gray-800 rounded-2xl shadow-2xl p-8 border border-gray-700">
-          <div className="text-center mb-8">
+          {/* Logo ISA */}
+          <div className="text-center mb-6">
+            <img 
+              src="/isa-logo.png" 
+              alt="ISA INTERCOLOMBIA" 
+              className="h-16 mx-auto mb-4 object-contain"
+              onError={(e) => {
+                e.target.style.display = 'none';
+              }}
+            />
             <div className="w-20 h-20 bg-cyan-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
               <span className="text-5xl">🔐</span>
             </div>
@@ -84,10 +93,22 @@ export default function LoginScreen({ onLoginSuccess }) {
             </button>
           </form>
 
-          <div className="mt-6 p-4 bg-gray-700/50 rounded-lg">
-            <p className="text-xs text-gray-400 text-center">
-              💡 Solicita tu clave al equipo de TI
-            </p>
+          {/* Información de la Prueba Técnica */}
+          <div className="mt-6 p-4 bg-gradient-to-r from-cyan-900/20 to-blue-900/20 rounded-lg border border-cyan-500/30">
+            <div className="text-center">
+              <p className="text-xs font-semibold text-cyan-400 mb-1">
+                📋 PRUEBA TÉCNICA
+              </p>
+              <p className="text-xs text-gray-300 mb-1">
+                Analista de Datos de Mantenimiento
+              </p>
+              <p className="text-xs text-gray-400">
+                Desarrollado por: <span className="text-cyan-400 font-medium">Felipe Ruiz</span>
+              </p>
+              <p className="text-xs text-gray-500 mt-2">
+                ISA INTERCOLOMBIA © 2025
+              </p>
+            </div>
           </div>
         </div>
       </div>

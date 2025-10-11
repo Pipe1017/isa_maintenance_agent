@@ -108,6 +108,33 @@ export default function InstructionsView() {
           El tiempo de respuesta puede variar entre 10-60 segundos dependiendo de la complejidad de la pregunta.
         </p>
       </div>
+
+      {/* Footer con Información de la Prueba */}
+      <div className="bg-gray-800 rounded-xl p-6 border border-gray-700">
+        <div className="text-center">
+          <h3 className="text-lg font-bold text-cyan-400 mb-3">📋 Información de la Prueba Técnica</h3>
+          <div className="space-y-2 text-sm">
+            <p className="text-gray-300">
+              <span className="font-semibold text-white">Candidato:</span> Felipe Ruiz
+            </p>
+            <p className="text-gray-300">
+              <span className="font-semibold text-white">Puesto:</span> Analista de Datos de Mantenimiento
+            </p>
+            <p className="text-gray-300">
+              <span className="font-semibold text-white">Empresa:</span> ISA INTERCOLOMBIA
+            </p>
+            <p className="text-gray-300">
+              <span className="font-semibold text-white">Fecha:</span> Octubre 2025
+            </p>
+          </div>
+          <div className="mt-4 pt-4 border-t border-gray-700">
+            <p className="text-xs text-gray-400">
+              Este proyecto demuestra capacidades en: Desarrollo Full Stack, Integración con IA,
+              Análisis de Datos, DevOps y Seguridad.
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

@@ -3,7 +3,15 @@ export default function Sidebar({ currentView, onViewChange, onLogout }) {
     <aside className="w-64 bg-gray-800 border-r border-gray-700 flex flex-col">
       {/* Logo/Header */}
       <div className="p-6 border-b border-gray-700">
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 mb-4">
+          <img 
+            src="/isa-logo.png" 
+            alt="ISA" 
+            className="h-10 object-contain"
+            onError={(e) => {
+              e.target.style.display = 'none';
+            }}
+          />
           <div className="w-10 h-10 bg-cyan-500/10 rounded-lg flex items-center justify-center">
             <span className="text-2xl">🤖</span>
           </div>
@@ -11,6 +19,14 @@ export default function Sidebar({ currentView, onViewChange, onLogout }) {
             <h1 className="font-bold text-cyan-400">ISA Agent</h1>
             <p className="text-xs text-gray-400">DeepSeek R1</p>
           </div>
+        </div>
+        <div className="bg-cyan-900/20 rounded-lg p-3 border border-cyan-500/30">
+          <p className="text-xs text-center text-gray-300 font-medium">
+            📋 Prueba Técnica
+          </p>
+          <p className="text-xs text-center text-cyan-400 mt-1">
+            Felipe Ruiz
+          </p>
         </div>
       </div>
 
@@ -51,7 +67,7 @@ export default function Sidebar({ currentView, onViewChange, onLogout }) {
               <span className="text-sm">👤</span>
             </div>
             <div>
-              <p className="text-sm font-medium">Usuario</p>
+              <p className="text-sm font-medium">Felipe Ruiz</p>
               <p className="text-xs text-gray-400">Autenticado</p>
             </div>
           </div>
