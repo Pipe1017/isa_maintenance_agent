@@ -1,8 +1,15 @@
-# backend/render.yaml (opcional pero recomendado)
 services:
   - type: web
-    name: isa-maintenance-agent-api
+    name: isa-backend
     env: python
-    plan: free
+    runtime: python
     buildCommand: pip install -r requirements.txt
-    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    startCommand: ./start.sh
+    plan: free
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.6
+      - key: GOOGLE_API_KEY
+        sync: false
+      - key: DEEPSEEK_API_KEY
+        sync: false

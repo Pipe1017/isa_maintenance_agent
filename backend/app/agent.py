@@ -1,47 +1,78 @@
-# En: backend/app/agent.py
-
+import os
 import pandas as pd
-from langchain_google_genai import ChatGoogleGenerativeAI
-from langchain_deepseek import ChatDeepSeek
-from langchain_community.llms import Ollama
+from langchain_openai import ChatOpenAI
 from langchain_experimental.agents.agent_toolkits import create_pandas_dataframe_agent
-from langchain_core.language_models.chat_models import BaseChatModel
 
-def get_llm(model_name: str) -> BaseChatModel:
-    """
-    Basado en un nombre, inicializa y devuelve el Modelo de Lenguaje Grande (LLM) correspondiente.
-    """
-    if model_name == "gemini":
-        print("✅ Seleccionando modelo: Gemini 1.5 Flash")
-        # Asegúrate de que GOOGLE_API_KEY esté en tu .env
-        return ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0)
-    
-    elif model_name == "deepseek":
-        print("✅ Seleccionando modelo: DeepSeek API")
-        # Asegúrate de que DEEPSEEK_API_KEY esté en tu .env
-        return ChatDeepSeek(model="deepseek-chat", temperature=0)
-    
-    elif model_name == "llama3":
-        print("✅ Seleccionando modelo: Llama 3 (Ollama Local)")
-        # Asegúrate de tener Ollama corriendo con 'ollama serve'
-        return Ollama(model="llama3")
-        
-    else:
-        # Modelo por defecto si el nombre no es válido
-        print(f"⚠️ Modelo '{model_name}' no reconocido. Usando Gemini por defecto.")
-        return ChatGoogleGenerativeAI(model="gemini-1.5-flash", temperature=0)
 
-def create_agent(df: pd.DataFrame, model_name: str = "gemini"):
+def get_deepseek_llm():
     """
-    Crea un agente de Pandas usando el DataFrame y el nombre del modelo especificados.
+    Inicializa el modelo DeepSeek R1 usando la API compatible con OpenAI.
     """
-    llm = get_llm(model_name)
+    api_key = os.getenv("DEEPSEEK_API_KEY")
+    
+    if not api_key:
+        raise ValueError("❌ DEEPSEEK_API_KEY no encontrada en el archivo .env")
+    
+    print("✅ Inicializando DeepSeek R1")
+    
+    # DeepSeek R1 usa una API compatible con OpenAI
+    llm = ChatOpenAI(
+        model="deepseek-reasoner",  # Modelo DeepSeek R1
+        openai_api_key=api_key,
+        openai_api_base="https://api.deepseek.com",  # Endpoint de DeepSeek
+        temperature=0,
+        max_tokens=8000
+    )
+    
+    return llm
+
+
+def create_agent(df: pd.DataFrame):
+    """
+    Crea un agente de Pandas usando DeepSeek R1 para analizar el DataFrame.
+    
+    Args:
+        df: DataFrame de Pandas con los datos
+    
+    Returns:
+        Agente configurado para analizar el DataFrame
+    """
+    llm = get_deepseek_llm()
+    
+    # Prompt del sistema optimizado para DeepSeek R1
+    prefix = """
+Eres un asistente experto en análisis de datos de mantenimiento de transformadores para ISA INTERCOLOMBIA.
+
+Tienes acceso a un DataFrame de pandas con información de avisos de mantenimiento.
+
+INSTRUCCIONES IMPORTANTES:
+1. Analiza cuidadosamente los datos del DataFrame antes de responder
+2. Usa código Python con pandas para calcular respuestas precisas
+3. Presenta resultados de forma clara y profesional
+4. Si necesitas contar, agrupar o filtrar datos, usa las funciones de pandas
+5. Siempre verifica que tus cálculos sean correctos
+
+Cuando te hagan una pregunta:
+- Primero explora los datos relevantes
+- Realiza los cálculos necesarios
+- Presenta la respuesta con números exactos
+
+Recuerda: Solo responde basándote en los datos disponibles en el DataFrame.
+"""
+    
     agent = create_pandas_dataframe_agent(
         llm,
         df,
+        prefix=prefix,
         verbose=True,
-        allow_dangerous_code=True
-        # La línea 'handle_parsing_errors=True' ha sido eliminada.
+        allow_dangerous_code=True,
+        max_iterations=15,
+        max_execution_time=120,
+        agent_type="openai-tools"  # Mejor para modelos tipo OpenAI
     )
-    print(f"✅ Agente creado con el modelo: {model_name}")
+    
+    print(f"✅ Agente creado con DeepSeek R1")
+    print(f"   DataFrame shape: {df.shape}")
+    print(f"   Columnas disponibles: {list(df.columns)}")
+    
     return agent
