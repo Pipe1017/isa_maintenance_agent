@@ -1,0 +1,8 @@
+# backend/render.yaml (opcional pero recomendado)
+services:
+  - type: web
+    name: isa-maintenance-agent-api
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
