@@ -56,14 +56,23 @@ app = FastAPI(
 )
 
 # Configuración de CORS
-origins = [
-    "http://localhost:5173",
-    "http://127.0.0.1:5173",
-    "http://localhost:5174",
-    "http://127.0.0.1:5174",
-    "https://*.netlify.app",
-    # Añade aquí tu dominio de producción cuando lo tengas
-]
+# Obtener orígenes permitidos desde variable de entorno
+allowed_origins_env = os.getenv("ALLOWED_ORIGINS", "")
+if allowed_origins_env:
+    origins = [origin.strip() for origin in allowed_origins_env.split(",")]
+else:
+    # Orígenes por defecto si no hay variable de entorno
+    origins = [
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+        "http://localhost:5174",
+        "http://127.0.0.1:5174",
+    ]
+
+# Permitir todos los subdominios de Netlify
+origins.append("https://*.netlify.app")
+
+print(f"✅ CORS configurado para: {origins}")
 
 app.add_middleware(
     CORSMiddleware,
@@ -77,11 +86,22 @@ app.add_middleware(
 @app.get("/")
 async def read_root(api_key: str = Security(api_key_header)):
     """
-    Endpoint de verificación. Si se proporciona API Key, la valida.
-    Si no se proporciona, devuelve info básica.
+    Endpoint de verificación. 
+    - Sin API Key: Devuelve info básica
+    - Con API Key: Valida y confirma autenticación
     """
+    # Si no se proporciona API key, devolver info básica
+    if not api_key:
+        return {
+            "message": "API del Agente DeepSeek R1 - ISA INTERCOLOMBIA",
+            "status": "online",
+            "authenticated": False,
+            "protected": bool(VALID_API_KEY),
+            "version": "3.1.0"
+        }
+    
     # Si hay API key configurada Y se proporciona una, verificarla
-    if VALID_API_KEY and api_key:
+    if VALID_API_KEY:
         if api_key != VALID_API_KEY:
             raise HTTPException(
                 status_code=403,
@@ -96,13 +116,12 @@ async def read_root(api_key: str = Security(api_key_header)):
             "version": "3.1.0"
         }
     
-    # Sin API key o sin validación requerida
+    # Sin validación requerida
     return {
         "message": "API del Agente DeepSeek R1 - ISA INTERCOLOMBIA",
         "status": "online",
-        "authenticated": False,
-        "protected": bool(VALID_API_KEY),
-        "info": "Endpoint protegido. Requiere X-API-Key header para usar /ask"
+        "authenticated": True,
+        "version": "3.1.0"
     }
 
 
