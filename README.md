@@ -6,6 +6,7 @@
 
 ---
 
+
 ## 📋 Descripción
 
 Agente conversacional que analiza datos de avisos de mantenimiento mediante preguntas en lenguaje natural. Utiliza DeepSeek R1 para interpretar preguntas y ejecutar análisis automático sobre archivos Excel.
@@ -179,9 +180,8 @@ isa-maintenance-agent/
 ## 📞 Contacto
 
 **Felipe Ruiz**  
-Email: [tu-email]  
-LinkedIn: [tu-linkedin]  
-GitHub: [tu-github]
+Email: felip_1017@outlook.com  
+LinkedIn:  https://www.linkedin.com/in/felruizzea/ 
 
 ---
 
