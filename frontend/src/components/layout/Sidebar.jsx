@@ -1,3 +1,5 @@
+import { BarChart3, BookOpen, User, LogOut, Bot } from 'lucide-react';
+
 export default function Sidebar({ currentView, onViewChange, onLogout }) {
   return (
     <aside className="w-64 bg-gray-800 border-r border-gray-700 flex flex-col">
@@ -13,16 +15,16 @@ export default function Sidebar({ currentView, onViewChange, onLogout }) {
             }}
           />
           <div className="w-10 h-10 bg-cyan-500/10 rounded-lg flex items-center justify-center">
-            <span className="text-2xl">🤖</span>
+            <Bot className="w-6 h-6 text-cyan-400" />
           </div>
           <div>
             <h1 className="font-bold text-cyan-400">ISA Agent</h1>
-            <p className="text-xs text-gray-400">DeepSeek R1</p>
+            <p className="text-xs text-gray-400">Analisis con IA/LLM</p>
           </div>
         </div>
         <div className="bg-cyan-900/20 rounded-lg p-3 border border-cyan-500/30">
           <p className="text-xs text-center text-gray-300 font-medium">
-            📋 Prueba Técnica
+            Prueba Técnica
           </p>
           <p className="text-xs text-center text-cyan-400 mt-1">
             Felipe Ruiz
@@ -41,7 +43,7 @@ export default function Sidebar({ currentView, onViewChange, onLogout }) {
                 : 'text-gray-400 hover:bg-gray-700 hover:text-white'
             }`}
           >
-            <span className="text-xl">📊</span>
+            <BarChart3 className="w-5 h-5" />
             <span className="font-medium">Analizar Datos</span>
           </button>
           
@@ -53,7 +55,7 @@ export default function Sidebar({ currentView, onViewChange, onLogout }) {
                 : 'text-gray-400 hover:bg-gray-700 hover:text-white'
             }`}
           >
-            <span className="text-xl">📖</span>
+            <BookOpen className="w-5 h-5" />
             <span className="font-medium">Instrucciones</span>
           </button>
         </div>
@@ -64,7 +66,7 @@ export default function Sidebar({ currentView, onViewChange, onLogout }) {
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 bg-cyan-500/20 rounded-full flex items-center justify-center">
-              <span className="text-sm">👤</span>
+              <User className="w-4 h-4 text-cyan-400" />
             </div>
             <div>
               <p className="text-sm font-medium">Felipe Ruiz</p>
@@ -74,9 +76,10 @@ export default function Sidebar({ currentView, onViewChange, onLogout }) {
         </div>
         <button
           onClick={onLogout}
-          className="w-full bg-red-900/30 hover:bg-red-900/50 text-red-400 py-2 rounded-lg transition-colors text-sm font-medium"
+          className="w-full bg-red-900/30 hover:bg-red-900/50 text-red-400 py-2 rounded-lg transition-colors text-sm font-medium flex items-center justify-center gap-2"
         >
-          🚪 Cerrar Sesión
+          <LogOut className="w-4 h-4" />
+          Cerrar Sesión
         </button>
       </div>
     </aside>

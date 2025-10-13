@@ -99,11 +99,11 @@ export default function InstructionsView() {
         </ul>
       </div>
 
-      {/* Info sobre DeepSeek */}
+      {/* Info sobre el Agente */}
       <div className="bg-gradient-to-r from-cyan-900/20 to-blue-900/20 rounded-xl p-6 border border-cyan-500/30">
-        <h3 className="text-xl font-bold text-cyan-400 mb-2">⚡ Potenciado por DeepSeek R1</h3>
+        <h3 className="text-xl font-bold text-cyan-400 mb-2">⚡ Potenciado por IA Avanzada</h3>
         <p className="text-gray-300 text-sm leading-relaxed">
-          Este agente utiliza DeepSeek R1, un modelo de razonamiento avanzado que analiza tus datos
+          Este agente utiliza modelos de lenguaje de última generación para analizar tus datos
           de forma inteligente y precisa. Cada respuesta está basada en cálculos reales sobre tus datos.
           El tiempo de respuesta puede variar entre 10-60 segundos dependiendo de la complejidad de la pregunta.
         </p>

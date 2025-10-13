@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import FileUpload from '../shared/FileUpload';
 import ChatInterface from '../shared/ChatInterface';
+import QuickQuestions from '../shared/QuickQuestions';
 import { askAgent } from '../../utils/api';
 
 export default function AnalyzeView({ apiKey }) {
@@ -9,12 +10,6 @@ export default function AnalyzeView({ apiKey }) {
   const [question, setQuestion] = useState('');
   const [chatHistory, setChatHistory] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-
-  const exampleQuestions = [
-    "¿Cuántos avisos hay en total?",
-    "¿Cuántos avisos hay por área?",
-    "¿Cuál es el tipo de equipo más común?"
-  ];
 
   const handleFileChange = (e) => {
     const file = e.target.files?.[0];
@@ -68,7 +63,7 @@ export default function AnalyzeView({ apiKey }) {
 
   return (
     <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6 h-full">
-      {/* Panel Izquierdo: Carga y Resumen */}
+      {/* Panel Izquierdo: Carga, Resumen y Preguntas */}
       <div className="lg:col-span-1 space-y-6">
         <FileUpload 
           selectedFile={selectedFile}
@@ -76,22 +71,11 @@ export default function AnalyzeView({ apiKey }) {
           onFileChange={handleFileChange}
         />
 
-        {/* Preguntas Rápidas */}
-        <div className="bg-gray-800 rounded-xl p-6 border border-gray-700">
-          <h3 className="text-lg font-bold text-white mb-3">⚡ Preguntas Rápidas</h3>
-          <div className="space-y-2">
-            {exampleQuestions.map((q, i) => (
-              <button
-                key={i}
-                onClick={() => setQuestion(q)}
-                disabled={!selectedFile || isLoading}
-                className="w-full text-left text-xs bg-gray-700 hover:bg-cyan-600 text-gray-300 hover:text-white px-3 py-2 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {q}
-              </button>
-            ))}
-          </div>
-        </div>
+        {/* Preguntas Rápidas Organizadas */}
+        <QuickQuestions
+          onSelectQuestion={setQuestion}
+          disabled={!selectedFile || isLoading}
+        />
       </div>
 
       {/* Panel Derecho: Chat */}

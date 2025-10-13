@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Lock, AlertCircle, LogIn } from 'lucide-react';
 import { checkServerStatus } from '../../utils/api';
 
 export default function LoginScreen({ onLoginSuccess }) {
@@ -48,13 +49,13 @@ export default function LoginScreen({ onLoginSuccess }) {
               }}
             />
             <div className="w-20 h-20 bg-cyan-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
-              <span className="text-5xl">🔐</span>
+              <Lock className="w-10 h-10 text-cyan-400" />
             </div>
             <h1 className="text-3xl font-bold text-cyan-400 mb-2">
               Acceso Restringido
             </h1>
             <p className="text-gray-400">
-              Agente DeepSeek R1 - ISA INTERCOLOMBIA
+              AGENTE DE MANTENIMIENTO - ISA INTERCOLOMBIA
             </p>
           </div>
 
@@ -78,7 +79,7 @@ export default function LoginScreen({ onLoginSuccess }) {
             {loginError && (
               <div className="bg-red-900/30 border border-red-500 rounded-lg p-3">
                 <p className="text-red-400 text-sm flex items-center gap-2">
-                  <span>⚠️</span>
+                  <AlertCircle className="w-4 h-4" />
                   {loginError}
                 </p>
               </div>
@@ -87,9 +88,10 @@ export default function LoginScreen({ onLoginSuccess }) {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 disabled:from-gray-600 disabled:to-gray-600 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300"
+              className="w-full bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 disabled:from-gray-600 disabled:to-gray-600 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 flex items-center justify-center gap-2"
             >
-              {isLoading ? '🔄 Verificando...' : '🚀 Acceder al Sistema'}
+              <LogIn className="w-5 h-5" />
+              {isLoading ? 'Verificando...' : 'Acceder al Sistema'}
             </button>
           </form>
 
@@ -97,7 +99,7 @@ export default function LoginScreen({ onLoginSuccess }) {
           <div className="mt-6 p-4 bg-gradient-to-r from-cyan-900/20 to-blue-900/20 rounded-lg border border-cyan-500/30">
             <div className="text-center">
               <p className="text-xs font-semibold text-cyan-400 mb-1">
-                📋 PRUEBA TÉCNICA
+                PRUEBA TÉCNICA
               </p>
               <p className="text-xs text-gray-300 mb-1">
                 Analista de Datos de Mantenimiento

@@ -6,6 +6,7 @@ import io
 import os
 from dotenv import find_dotenv, load_dotenv
 from app.agent import create_agent
+from app.validator import FileValidator
 
 # Carga de Claves de API
 env_file = find_dotenv()
