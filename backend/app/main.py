@@ -169,13 +169,17 @@ async def ask_agent(
         print(f"   Dimensiones: {dataframe.shape}")
         print(f"   Usuario autenticado: {api_key[:8]}...")
         
-        # Validar que el DataFrame no esté vacío
-        if dataframe.empty:
+        
+        # Validar el contenido y la estructura del DataFrame
+        is_valid, error_message = FileValidator.validate_file(dataframe)
+        
+        if not is_valid:
             raise HTTPException(
                 status_code=400,
-                detail="El archivo Excel está vacío"
+                detail=error_message
             )
         
+
         # Crear y ejecutar el agente con DeepSeek R1
         try:
             agent_executor = create_agent(dataframe)
